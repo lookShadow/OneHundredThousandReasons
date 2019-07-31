@@ -1,0 +1,39 @@
+-->为什么Java支持单继承多实现?
+-->为什么使用单例模式?
+-->java中所有的类继承了Object,那接口继承了Object吗?
+
+
+-->为什么不用StringBuilder代替String? StringBuilder与String的应用场景?
+答:StringBuilder比String快,快的也就是生成StringBuilder临时对象的时间.99.9999%的情况.这点性能和效率提升.对整体系统来说.毫无意义.
+    StringBuilder适用于对一个字符串进行大量的操作,
+    String适用于对某个字符串进行一次或几次的操作
+
+-->cookie与session区别
+答:cookie的由来: 因为http的无状态的,当同一个浏览器访问同一个服务器两次,第二次并不知道.也就是说当你在浏览器登录后,刷新界面,
+    又要重新登录.为了解决这个需求,诞生了cookie, 当浏览器访问完服务器,服务器会返回一个cookieId,浏览器创建cookie并将cookie保存到浏览器.
+seesion:因为cookie存在浏览器中,容易被盗取.然后就在把一些隐私信息存在服务器端,seesion就诞生了.
+    当浏览器第一次访问服务器,服务器会创建session并返回sessionId给浏览器,浏览器创建cookie,将seesionId存到cookie中.
+
+-->那为什么要将session存到redis中?
+答:如果网站有千万的用户, 千万的用户同时在线, 那么服务器就要维护千万的Session, 服务器压力大,
+    所以把session持久化到redis或者memcached中.减轻web服务器的压力, 提供web的响应速度
+
+-->Java中静态代码块、构造代码块、构造函数、普通代码块
+链接:https://www.cnblogs.com/ysocean/p/8194428.html
+
+-->java 反射原理?反射创建类实例的三种方式是什么?
+ 答:1. 反射类及反射方法的获取，都是通过从列表中搜寻查找匹配的方法，所以查找性能会随类的大小方法多少而变化；
+    2. 每个类都会有一个与之对应的Class实例，从而每个类都可以获取method反射方法，并作用到其他实例身上；
+    3. 反射也是考虑了线程安全的，放心使用；
+    4. 反射使用软引用relectionData缓存class信息，避免每次重新从jvm获取带来的开销；
+    5. 反射调用多次生成新代理Accessor, 而通过字节码生存的则考虑了卸载功能，所以会使用独立的类加载器；
+    6. 当找到需要的方法，都会copy一份出来，而不是使用原来的实例，从而保证数据隔离；
+    7. 调度反射方法，最终是由jvm执行invoke0()执行；
+反射性能差的原因::是因为性能随着类的大小方法多少而变化.
+答:例如:User类: User.class   User.getClass()  Class.forName("全路径名")
+
+-->反射中，Class.forName 和 ClassLoader 区别
+答:Class.forName除了将类的.class文件加载到jvm中之外，还会对类进行解释，执行类中的static块,所以Class.forName底层使用了ClassLoader
+而ClassLoader仅仅是将.class文件加载到jvm中.
+
+-->IO 模型有哪些，讲讲你理解的 nio ，他和 bio，aio 的区别是啥，谈谈 reactor 模型。

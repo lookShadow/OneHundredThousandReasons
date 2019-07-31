@@ -1,0 +1,7 @@
+-->为什么要用redis 做缓存不用Java中的Map?
+答:redis可以处理每秒百万级的并发,是专业的缓存服务,Map只是一个普通的对象.
+redis部署在服务器上可以存储几十G的内容(一个key或是value大小最大是512M) ,Map不行,jvm也就几个G大
+redis的缓存可以作持久化,Map的内存对象,程序一重启就没了.
+redis可以实现分布式缓存,Map只能创建到它的程序里.
+redis缓存有过期功能.map没有
+reids有丰富的API,map就简单多了.

@@ -1,0 +1,13 @@
+-->mysql exists和in 的区别.
+答:查询所有下过单的用户
+select * from user where exists (select * from order where user.id = order.user.id)
+select * from user where id in (select userId from order)
+结论:外表比里面的表大的用 in  即 user表的数据量>order表的数据量
+    外表比里面的表小的用exists  即 user表的数据量<order表的数据量
+    原理:因为in 会将查询到的userId进行缓存,在内存中遍历user 和 order
+    而exists不会缓存exists的结果集,因为这个结果集不重要,只需要返回真假就可以,而exists是需要查询数据库,
+    我们都知道查询数据库所消耗的性能比内存要高,并且内存查询更快.
+
+-->Mysql与reids并发量比较
+    答:mysql数据存在硬盘中,单台服务器,并发量200+
+    Redis数据存在内存中,单台服务器,并发量10W左右

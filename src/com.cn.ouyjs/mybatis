@@ -1,0 +1,5 @@
+-->mybatis你只写了接口为啥就能执行sql啊？那mapper中的方法支持重载吗?
+    mybatis利用动态代理帮我们生成了接口的实现类，这个类就是：org.apache.ibatis.binding.MapperProxy，
+    Object.class.equals(methid.getDeclaringClass()) 的作用是因为代理对象也有Object中的hashCode()等方法,就直接反射调用.
+    在投鞭断流时，Mybatis使用package+Mapper+method全限名作为key，去xml内寻找唯一sql来执行的。
+    类似：key=x.y.UserMapper.getUserById，那么，重载方法时将导致矛盾。对于Mapper接口，Mybatis禁止方法重载（overLoad）
